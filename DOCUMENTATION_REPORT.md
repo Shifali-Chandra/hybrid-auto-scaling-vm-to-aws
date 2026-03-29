@@ -166,6 +166,15 @@ else:
     print("Scaling command failed!")
 ```
 
+Few important points about the script:
+
+- The script uses the `os.system()` function to execute the AWS CLI command directly from Python
+- The AWS CLI command `set-desired-capacity` instructs the Auto Scaling Group to increase the number of running instances to 2
+- The Auto Scaling Group name `AutoScalingGroup` must match the name configured in the AWS Console
+- The script checks the return code of the command — 0 indicates success, any non-zero value indicates failure
+- A success or failure message is printed to the terminal based on the return code
+- This implementation simulates a small-scale hybrid auto-scaling setup. At larger scale, the trigger mechanism can be replaced with AWS Auto Scaling Policies and CloudWatch Alarms for more dynamic and automated scaling behaviour
+
 ---
 
 ## 5. AWS Integration Setup
@@ -265,45 +274,7 @@ This ensures at least one instance is always running and the system can scale up
 
 ---
 
-## 7. Trigger Script Implementation
-
-A separate Python script was created to execute the AWS scaling command.
-
-### Script: trigger_ec2.py
-
-The script is called automatically by `monitor.py` when CPU usage exceeds the threshold. It sends a command to the AWS Auto Scaling Group to increase the desired instance count.
-
-The exact script used is as following:
-
-```python
-import os
-
-print("Scaling AWS Auto Scaling Group...")
-
-result = os.system(
-    "aws autoscaling set-desired-capacity "
-    "--auto-scaling-group-name AutoScalingGroup "
-    "--desired-capacity 2"
-)
-
-if result == 0:
-    print("Scaling command executed successfully!")
-else:
-    print("Scaling command failed!")
-```
-
-Few important points about the script:
-
-- The script uses the `os.system()` function to execute the AWS CLI command directly from Python
-- The AWS CLI command `set-desired-capacity` instructs the Auto Scaling Group to increase the number of running instances to 2
-- The Auto Scaling Group name `AutoScalingGroup` must match the name configured in the AWS Console
-- The script checks the return code of the command — 0 indicates success, any non-zero value indicates failure
-- A success or failure message is printed to the terminal based on the return code
-- This implementation simulates a small-scale hybrid auto-scaling setup. At larger scale, the trigger mechanism can be replaced with AWS Auto Scaling Policies and CloudWatch Alarms for more dynamic and automated scaling behaviour
-
----
-
-## 8. Architecture Design
+## 7. Architecture Design
 
 The following diagram illustrates the complete system architecture:
 
@@ -321,7 +292,7 @@ The architecture is organized into three primary layers:
 
 ---
 
-## 9. Testing and Validation
+## 8. Testing and Validation
 
 The system was tested using a simulated CPU workload on the local VM.
 
@@ -353,7 +324,7 @@ This confirms that the system works end-to-end as expected, from CPU spike detec
 
 ---
 
-## 10. Conclusion
+## 9. Conclusion
 
 This assignment successfully shows the following:
 
