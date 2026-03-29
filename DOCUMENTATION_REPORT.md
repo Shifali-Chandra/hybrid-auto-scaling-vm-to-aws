@@ -278,7 +278,7 @@ This ensures at least one instance is always running and the system can scale up
 
 The following diagram illustrates the complete system architecture:
 
-![Hybrid Auto-Scaling Architecture](./architecture.png)
+![Hybrid Auto-Scaling Architecture](./Architecture.png)
 
 ### Architecture Overview
 
