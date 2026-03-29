@@ -145,6 +145,27 @@ When CPU usage exceeds the threshold:
 - The script waits 15 seconds for the instance to launch
 - The updated instance count is fetched and printed to confirm scaling
 
+### The `trigger_ec2.py` Script
+
+Here is the complete code for the trigger script:
+
+```python
+import os
+
+print("Scaling AWS Auto Scaling Group...")
+
+result = os.system(
+    "aws autoscaling set-desired-capacity "
+    "--auto-scaling-group-name AutoScalingGroup "
+    "--desired-capacity 2"
+)
+
+if result == 0:
+    print("Scaling command executed successfully!")
+else:
+    print("Scaling command failed!")
+```
+
 ---
 
 ## 5. AWS Integration Setup
